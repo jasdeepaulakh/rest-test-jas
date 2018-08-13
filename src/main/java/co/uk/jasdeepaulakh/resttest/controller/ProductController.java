@@ -5,14 +5,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 import java.util.Properties;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.uk.jasdeepaulakh.resttest.entity.Product;
@@ -57,8 +56,35 @@ public class ProductController {
 	}
 	
 	@PostMapping("/addproduct")
-	public @ResponseBody ResponseEntity<String> addProduct(){
-		return new ResponseEntity<String>("POST Response", HttpStatus.OK);
+	public void addProduct(@RequestBody Map<String, String> body){
+		
+		String name = body.get("name");
+		String description = body.get("description");
+		double price = Double.parseDouble(body.get("price"));
+		
+		String url = "jdbc:postgresql://ec2-23-21-129-50.compute-1.amazonaws.com:5432/d8jm11dddo7ds2?sslmode=require";
+		Properties props = new Properties();
+		props.setProperty("user", "grlahjqfhsjkkl");
+		props.setProperty("password", "514d109b01329f487e1948e488276be6943069bc2e61e9a51d682856b1f6f322");
+		props.setProperty("ssl","true");
+		
+		try {
+			Class.forName("org.postgresql.Driver");
+			Connection conn = DriverManager.getConnection(url,props);
+			PreparedStatement stmt = conn.prepareStatement("INSERT INTO products VALUES (DEFAULT, ?, ?, ?);");
+			stmt.setString(1,name);
+			stmt.setString(2, description);
+			stmt.setDouble(3, price);
+			stmt.executeUpdate();
+		} catch (ClassNotFoundException | SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	
+		
+		
+		
+		
+		
 	}
 
 }
