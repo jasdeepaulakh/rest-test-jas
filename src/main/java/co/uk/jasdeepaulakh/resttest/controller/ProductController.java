@@ -33,10 +33,22 @@ public class ProductController {
 	public Product getProduct(@PathVariable String id) {
 		int productId = Integer.parseInt(id);
 		return productRepository.findById(productId).get();
-		
 	}
 	
-	@RequestMapping("/product")
+	@GetMapping("/product")
+	public List<Product> getAllProducts(){
+		return productRepository.findAll();
+	}
+	
+	@PostMapping("/product")
+	public Product createProduct(@RequestBody Map<String, String> body) {
+		String name = body.get("name");
+		String description = body.get("description");
+		double price = Double.parseDouble(body.get("price"));
+		return productRepository.save(new Product(name,description, price));
+	}
+	
+	/* @RequestMapping("/product")
 	public Product getProduct(@RequestParam(value="id") int id) {
 		
 		Product product = null;
@@ -87,7 +99,7 @@ public class ProductController {
 
 		return product;
 		
-	}
+	} */
 	
 	@RequestMapping("/getproducts")
 	public List<Product> getProduct() {
