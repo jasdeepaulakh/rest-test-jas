@@ -30,9 +30,9 @@ public class ProductController {
 	ProductRepository productRepository;
 	
 	@GetMapping("/product/{id}")
-	public Optional<Product> getProduct(@PathVariable String id) {
+	public Product getProduct(@PathVariable String id) {
 		int productId = Integer.parseInt(id);
-		return productRepository.findById(productId);
+		return productRepository.findById(productId).get();
 		
 	}
 	
