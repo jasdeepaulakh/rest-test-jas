@@ -58,6 +58,11 @@ public class ProductController {
 		product.setPrice(Double.parseDouble(body.get("price")));
 		return productRepository.save(product);
 	}
+	
+	@GetMapping("/product/search/{searchTerm}")
+	public List<Product> searchProduct(@PathVariable String searchTerm){
+		return productRepository.findBySearchName(searchTerm);
+	}
 }
 
 //************OLD Code using JDBC**************
