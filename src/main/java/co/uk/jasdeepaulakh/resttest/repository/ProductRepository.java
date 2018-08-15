@@ -12,7 +12,7 @@ import co.uk.jasdeepaulakh.resttest.entity.Product;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 	
-	@Query(value="SELECT * from products WHERE LOWER(name) LIKE LOWER(CONCAT('%',:searchTerm,'%'))", nativeQuery=true)
+	@Query(value="SELECT * from product WHERE LOWER(name) LIKE LOWER(CONCAT('%',:searchTerm,'%'))", nativeQuery=true)
 	List<Product> findBySearchName(@Param("searchTerm") String searchTerm);
 
 	
