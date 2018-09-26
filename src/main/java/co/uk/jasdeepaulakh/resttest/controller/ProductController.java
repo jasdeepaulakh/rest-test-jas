@@ -36,7 +36,8 @@ public class ProductController {
 		String name = body.get("name");
 		String description = body.get("description");
 		double price = Double.parseDouble(body.get("price"));
-		return productRepository.save(new Product(name,description, price));
+		String product_image = body.get("product_image");
+		return productRepository.save(new Product(name,description, price, product_image));
 	}
 	
 	@PutMapping("/product/{id}")
@@ -46,6 +47,7 @@ public class ProductController {
 		product.setName(body.get("name"));
 		product.setDescription(body.get("description"));
 		product.setPrice(Double.parseDouble(body.get("price")));
+		product.setProduct_image(body.get("product_image"));
 		return productRepository.save(product);
 	}
 	

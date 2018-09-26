@@ -16,20 +16,25 @@ public class Product {
 	private String name;
 	private String description;
 	private double price;
+	private String product_image;
 	
 	public Product() {}
 	
-	public Product(String name, String description, double price) {
+	public Product(String name, String description, double price, String product_image ) {
 		this.name = name;
 		this.description = description;
 		this.price = price;
+		this.product_image = product_image;
 	}
-	
-	public Product(int id, String name, String description, double price) {
+
+
+	public Product(int id, String name, String description, double price, String product_image) {
+		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.price = price;
+		this.product_image = product_image;
 	}
 
 	public int getId() {
@@ -63,6 +68,18 @@ public class Product {
 	public void setPrice(double price) {
 		this.price = price;
 	}
+
+	public String getProduct_image() {
+		return product_image;
+	}
+
+	public void setProduct_image(String product_image) {
+		this.product_image = product_image;
+	}
+
+
+	
+	
 	
 	
 
